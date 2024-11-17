@@ -13,6 +13,8 @@
 <br>
 <% if current_user.admin? %>
     <%= link_to 'Users', admin_users_path %>
+<% else %>
+    <%= link_to 'Trade Stocks', stocks_intraday_path %>
 <% end %>
 
 <% if user_signed_in? %>
