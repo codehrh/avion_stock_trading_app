@@ -1,0 +1,38 @@
+
+<%= form_with model: [:admin, @user] do |form| %>
+
+    <div>
+        <%= form.label :email %><br>
+        <%= form.email_field :email, autofocus: true %>
+    </div>
+
+    <div>
+        <%= form.label :first_name %><br>
+        <%= form.text_field :first_name %>
+    </div>
+
+    <div>
+        <%= form.label :last_name %><br>
+        <%= form.text_field :last_name %>
+    </div>
+
+    <div>
+        <%= form.label :balance %><br>
+        <%= form.text_field :balance %>
+    </div>
+
+    <div>
+        <%= form.label :password %><br>
+        <%= form.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div>
+        <%= form.label :password_confirmation %><br>
+        <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div>
+        <%= form.submit "Submit" %>
+    </div>
+
+<% end %>

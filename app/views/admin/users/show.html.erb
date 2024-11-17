@@ -1,0 +1,9 @@
+<h1>User Details</h1>
+<%=link_to "Back", admin_users_path %>
+<hr>
+
+<p>Email: <%= @user.email %></p>
+<p>First Name: <%= @user.first_name %></p>
+<p>Last Name: <%= @user.last_name %></p>
+<p>Balance: <%= @user.balance %></p>
+<%= link_to "Edit", edit_admin_user_path(@user) %>

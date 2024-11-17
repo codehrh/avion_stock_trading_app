@@ -1,2 +1,28 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<h1>Update User Details</h1>
+
+<%= form_with model: [:admin, @user] do |form| %>
+
+    <div>
+        <%= form.label :email %><br>
+        <%= form.email_field :email, autofocus: true %>
+    </div>
+
+    <div>
+        <%= form.label :first_name %><br>
+        <%= form.text_field :first_name %>
+    </div>
+
+    <div>
+        <%= form.label :last_name %><br>
+        <%= form.text_field :last_name %>
+    </div>
+
+    <div>
+        <%= form.label :balance %><br>
+        <%= form.text_field :balance %>
+    </div>
+
+    <div>
+        <%= form.submit "Submit" %>
+    </div>
+<% end %>

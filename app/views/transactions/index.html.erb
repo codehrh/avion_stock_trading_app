@@ -1,5 +1,7 @@
-<h1>Transactions#index</h1>
-
+<h1>Transactions</h1>
+<hr>
+<br>
+<%= link_to "Home", root_path %>
 
 <% if user_signed_in? %>
     <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
