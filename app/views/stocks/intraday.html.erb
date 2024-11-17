@@ -1,0 +1,27 @@
+<h1>INTRADAY STOCK DATA</h1>
+
+<%= form_with url: stocks_intraday_path, method: :get, local: true do |form| %>
+    <%= form.label :symbol, "Enter stock symbol (e.g., MSFT)" %>
+    <%= form.text_field :symbol, required: true %><br>
+    <%= form.submit "Search Stock" %>
+<% end %>
+
+<p><%= link_to 'Regenerate Stocks', stocks_intraday_path %></p>
+
+<% if @latest_open_value %>
+    <p><%= @stock_symbol %></p>
+    <p> Stock Price : <%= @latest_open_value %> </p> <br>
+    <%= form_with url: stocks_intraday_path, local: true do |f| %>
+        <div>
+            <%= f.label :quantity, "Quantity:" %>
+            <%= f.number_field :quantity, value: 0, min: 0 %>
+        </div>
+        <div>
+            <%= f.submit "Add Quantity", name: "action", value: "add" %>
+            <%= f.submit "Subtract Quantity", name: "action", value: "subtract" %>
+        </div>
+        <% if @quantity %>
+            <p>Total: <%= @latest_open_value * @quantity %></p>
+        <% end %>
+    <% end %>
+<% end %>

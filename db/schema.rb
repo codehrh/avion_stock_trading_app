@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_11_09_022711) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_15_121919) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "stocks", force: :cascade do |t|
     t.string "symbol"
     t.string "company_name"
-    t.integer "shares", default: 0
-    t.decimal "cost_price"
+    t.float "shares", default: 0.0
+    t.float "cost_price"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,11 +27,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_022711) do
 
   create_table "transactions", force: :cascade do |t|
     t.string "company_name"
-    t.float "total_price"
+    t.float "total_price", default: 0.0
     t.float "stock_price"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "action_type"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
@@ -45,7 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_09_022711) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.boolean "admin"
+    t.boolean "admin", default: true
     t.string "account_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
