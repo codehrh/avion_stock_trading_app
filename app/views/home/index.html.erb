@@ -3,4 +3,18 @@
 <br>
 <h3>Stock Market App</h3>
 <br>
-<h3>
+
+<br>
+<% if current_user.admin? %>
+  <%= link_to 'Admin Transactions', admin_transactions_path, class: 'btn btn-primary' %>
+<% else %>
+  <%= link_to 'Transactions', transactions_path, class: 'btn btn-primary' %>
+<% end %>
+<br>
+<% if current_user.admin? %>
+    <%= link_to 'Users', admin_users_path %>
+<% end %>
+
+<% if user_signed_in? %>
+    <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+<% end %>
