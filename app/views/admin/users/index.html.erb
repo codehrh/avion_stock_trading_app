@@ -2,7 +2,8 @@
 <p><%= link_to "Home", root_path %></p>
 <p><%= link_to "Create New Trader", new_admin_user_path %></p>
 <hr>
-
+<h2>Approved Users</h2>
+<% if @approved_users.any? %>
 <table>
     <thead>
         <tr>
@@ -13,7 +14,33 @@
         </tr>
     </thead>
     <tbody>
-        <% @users.each do |user| %>
+        <% @approved_users.each do |user| %>
+            <tr>
+                <td> <%= user.id %> </td>
+                <td> <%= user.email %> </td>
+                <td> <%= user.balance %> </td>
+                <td> <%= link_to "Show", admin_user_path(user) %> </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+<% else %>
+    <p>No approved users found.</p>
+<% end %>
+<hr>
+<h2>Pending Users</h2>
+<% if @pending_users.any? %>
+<table>
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Email</th>
+            <th>Balance</th>
+            <th>Admin Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @pending_users.each do |user| %>
             <tr>
                 <td> <%= user.id %> </td>
                 <td> <%= user.email %> </td>
@@ -25,3 +52,7 @@
         <% end %>
     </tbody>
 </table>
+<% else %>
+    <p>No pending users for approval.</p>
+<% end %>
+<hr>

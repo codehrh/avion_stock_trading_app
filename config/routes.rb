@@ -4,7 +4,12 @@ Rails.application.routes.draw do
   root "home#index"
 
   namespace :admin do
-    resources :users
+    resources :users do
+      member do
+        patch :approve
+        delete :deny
+      end
+    end
     resources :transactions
   end
 
