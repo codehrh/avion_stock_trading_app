@@ -1,3 +1,9 @@
 <h1>Hello, <%= @user.first_name %>!</h1>
-<p>Your account is currently pending approval. An admin will review your registration shortly. Please wait 3-5 business years.</p>
+<p>Your registration is almost complete. Please confirm your registration by clicking on the link below</p>
+<p>
+    <a href="<%= @confirmation_url %>"style="background-color: #007BFF; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">
+        Confirm registration
+    </a>
+</p>
+<p>Once done, please wait for an Admin to review your registration. This will take approximately 3-5 business years.</p>
 <p>Thank you for your patience!</p>

@@ -1,16 +1,13 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
-  def active_for_authentication?
-    super && account_status == 'approved'
-  end
+  # has_many: stocks, dependent: :delete_all
+  # has_many: transactions, dependent: :delete_all
 
-  def inactive_message
-    account_status == 'pending' ? :pending_approval : super
-  end
+  # def active_for_authentication?
+  #   super && account_status == 'approved'
+  # end
 
   after_create :set_pending_status_and_notify
 
