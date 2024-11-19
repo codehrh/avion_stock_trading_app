@@ -11,11 +11,20 @@
   <%= link_to 'Transactions', transactions_path, class: 'btn btn-primary' %>
 <% end %>
 <br>
+
 <% if current_user.admin? %>
     <%= link_to 'Users', admin_users_path %>
 <% else %>
     <%= link_to 'Trade Stocks', stocks_intraday_path %>
 <% end %>
+<br>
+
+<% if current_user.admin? %>
+    <%= link_to 'Stock Data', stocks_intraday_path %>
+<% else %>
+    <%= link_to 'Trade Stocks', stocks_intraday_path %>
+<% end %>
+<br>
 
 <% if user_signed_in? %>
     <%= button_to 'Logout', destroy_user_session_path, method: :delete %>

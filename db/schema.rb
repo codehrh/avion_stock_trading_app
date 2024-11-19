@@ -46,7 +46,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_11_17_140627) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.boolean "admin", default: false
+    t.boolean "admin", default: true
     t.string "account_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

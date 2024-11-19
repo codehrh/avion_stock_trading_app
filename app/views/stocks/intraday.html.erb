@@ -1,27 +1,47 @@
-<h1>INTRADAY STOCK DATA</h1>
+
+<h1>Buy & Sell Stocks</h1>
+<hr>
+<br>
+<p><%= link_to "Home", root_path %></p>
+
 
 <%= form_with url: stocks_intraday_path, method: :get, local: true do |form| %>
-    <%= form.label :symbol, "Enter stock symbol (e.g., MSFT)" %>
+    <%= form.label :symbol, "Enter stock symbol (e.g., MSFT)" %><br>
     <%= form.text_field :symbol, required: true %><br>
     <%= form.submit "Search Stock" %>
 <% end %>
 
 <p><%= link_to 'Regenerate Stocks', stocks_intraday_path %></p>
 
+
 <% if @latest_open_value %>
-    <p><%= @stock_symbol %></p>
-    <p> Stock Price : <%= @latest_open_value %> </p> <br>
+    <p>Symbol: <%= @stock_symbol %></p>
+    <p> Stock Price : <%= number_to_currency(@latest_open_value) %> </p> <br>
+
     <%= form_with url: stocks_intraday_path, local: true do |f| %>
         <div>
-            <%= f.label :quantity, "Quantity:" %>
-            <%= f.number_field :quantity, value: 0, min: 0 %>
+            <%= f.label :shares, "Buy Shares:" %><br>
+            <%= f.number_field :shares, value: 0, min: 0 %>
         </div>
+
+        <div>
+            <%= f.hidden_field :symbol, value:@stock_symbol %>
+        </div>
+
         <div>
             <%= f.submit "Add Quantity", name: "action", value: "add" %>
             <%= f.submit "Subtract Quantity", name: "action", value: "subtract" %>
         </div>
-        <% if @quantity %>
-            <p>Total: <%= @latest_open_value * @quantity %></p>
-        <% end %>
     <% end %>
+
+    <p>Total Qty Shares: <%= @stock_shares.to_i %> </p>
+    <p>Shares Total Cost: <%= number_to_currency(@stock_total_amount) %> </p>
 <% end %>
+
+
+    <% if false %>
+    <% @stocks.each do |stock| %>  
+        <p> <%= stock.shares %>  </p>
+        <p> <%= stock.cost_price %> </p>
+    <% end %>
+    <% end %>
