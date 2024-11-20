@@ -1,10 +1,13 @@
 <h1>Stock Trading App</h1>
 <hr>
 <br>
-<h3>Stock Market App</h3>
+
+Hi,
+<%= current_user.first_name %>
+<%= current_user.last_name %>
+<br>
 <br>
 
-<br>
 <% if current_user.admin? %>
   <%= link_to 'Admin Transactions', admin_transactions_path, class: 'btn btn-primary' %>
 <% else %>
@@ -24,6 +27,7 @@
 <% else %>
     <%= link_to 'Trade Stocks', stocks_intraday_path %>
 <% end %>
+<br>
 <br>
 
 <% if user_signed_in? %>
