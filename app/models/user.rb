@@ -5,10 +5,6 @@ class User < ApplicationRecord
   # has_many: stocks, dependent: :delete_all
   # has_many: transactions, dependent: :delete_all
 
-  # def active_for_authentication?
-  #   super && account_status == 'approved'
-  # end
-
   after_create :set_pending_status_and_notify
 
   private
