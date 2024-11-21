@@ -1,4 +1,5 @@
 <p><%= link_to "Stocks Transaction", transactions_path %></p>
+<p><%= link_to "Portfolio", portfolio_transactions_path %></p>
 
 <h1>STOCK - INTRADAY.HTML / Buy & Sell Stocks</h1>
 <hr>
@@ -36,4 +37,3 @@ Hi,
     <p>Total Qty Shares: <%= @stock_shares.to_i %> </p>
     <p>Shares Total Cost: <%= number_to_currency(@stock_total_amount) %> </p>
 <% end %>
-

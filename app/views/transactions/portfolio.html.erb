@@ -1,0 +1,27 @@
+<h1>My portfolio</h1>
+<%= link_to "Stocks Transaction", transactions_path %>
+<br>
+<%= current_user.first_name %>
+<%= current_user.last_name %><br>
+<%= current_user.email %>
+
+<p><strong>Total Shares Owned:</strong> <%= @total_shares %></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Total Shares</th>
+      <th>Total Cost Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @portfolio_summary.each do |item| %>
+      <tr>
+        <td><%= item.symbol %></td>
+        <td><%= item.total_shares %></td>
+        <td><%= number_to_currency(item.total_cost_price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

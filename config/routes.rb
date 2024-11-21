@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     resources :transactions 
   end
 
-  resources :transactions, only: [:index]
+  resources :transactions do
+    collection do
+      get :portfolio
+    end
+  end
 
   get "stocks/intraday"
   post "stocks/intraday" => "stocks#create"

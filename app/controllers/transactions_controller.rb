@@ -5,21 +5,20 @@ class TransactionsController < ApplicationController
     @transactions = current_user.transactions.order(created_at: :desc)
   end
 
-  # def intraday
-  #     if params[:symbol].present?
-  #     api = AlphaVantageApi.new
-    
-  #     @intraday_data = api.time_series_intraday(params[:symbol])
-  #     @stock_symbol = @intraday_data['Meta Data']['2. Symbol']
-  #     @latest_open_value = @intraday_data['Time Series (5min)'].values.first.dig('1. open')
-  #     @stocks = Stock.where(symbol: params[:symbol], user_id: current_user.id)
-  #     @stock_shares = @stocks.pluck(:shares).sum
-  #     @stock_total_amount = @stocks.pluck(:cost_price).sum
-  #     end
-  #   end
-  
-
   def create
     redirect_to transactions_path
   end
-end
+
+  def portfolio
+    @transactions = current_user.transactions.order(created_at: :desc)
+    # Calculate total shares owned (sum of all shares for the user)
+    @total_shares = @transactions.sum(:shares)
+
+    # Group by symbol and calculate total shares and cost price
+    @portfolio_summary = current_user.transactions
+    .select('symbol, SUM(shares) AS total_shares, SUM(total_price) AS total_cost_price')
+    .group(:symbol)
+    .order('symbol ASC') # Optional: Order by symbol alphabetically
+    end
+
+  end

@@ -12,7 +12,7 @@ class StocksController < ApplicationController
     @stocks = Stock.where(symbol: params[:symbol], user_id: current_user.id)
     @stock_shares = @stocks.pluck(:shares).sum
     @stock_total_amount = @stocks.pluck(:cost_price).sum
-  end
+    end
   end
   
   def create
