@@ -1,0 +1,23 @@
+<h1>Your Stocks</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Company Name</th>
+      <th>Shares</th>
+      <th>Cost Price</th>
+      <th>Total Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stocks.each do |stock| %>
+      <tr>
+        <td><%= stock.symbol %></td>
+        <td><%= stock.company_name %></td>
+        <td><%= stock.shares %></td>
+        <td><%= number_to_currency(stock.cost_price) %></td>
+        <td><%= number_to_currency(stock.shares * stock.cost_price) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

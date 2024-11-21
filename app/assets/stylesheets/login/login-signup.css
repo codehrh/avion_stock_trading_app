@@ -1,0 +1,98 @@
+/* Login and Sign-Up Page Styling */
+.login-title, .signup-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+.login-form, .signup-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-label, .signup-label {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* Spacing and layout for the fields */
+.login-field, .signup-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; /* Increased spacing between fields */
+}
+
+/* Input Fields Styling */
+.login-input, .signup-input {
+    width: 100%;
+    padding: 12px; /* Added more padding for better spacing */
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    box-sizing: border-box; /* Ensures padding is included in the total width */
+}
+
+/* Checkbox and Label Alignment */
+.login-checkbox, .signup-checkbox {
+    display: flex;
+    align-items: center;
+}
+
+.login-checkbox input, .signup-checkbox input {
+    margin-right: 8px; /* Adds space between the checkbox and label */
+}
+
+/* Submit Button Styling */
+.login-submit, .signup-submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto; /* Centers the button */
+}
+
+.login-submit:hover, .signup-submit:hover {
+    background-color: #45a049;
+}
+
+/* Error messages */
+div.field em {
+    color: red;
+    font-size: 0.875rem;
+}
+
+/* Links Styling (Positioned Below the Submit Button) */
+.devise-links {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #008CBA;
+}
+
+.devise-links a {
+    color: #008CBA;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.devise-links a:hover {
+    text-decoration: underline;
+}
+
+/* Additional Spacing for Form Links */
+.devise-links a + a {
+    margin-top: 10px;
+}

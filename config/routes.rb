@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "portfolios/show"
   devise_for :users, defaults: { format: :html }
 
   root "home#index"
@@ -13,9 +14,16 @@ Rails.application.routes.draw do
     resources :transactions
   end
 
-  resources :transactions
+  resources :transactions, only: [:index, :create]
 
-  get "stocks/intraday"
+  resources :stocks, only: [:create] do
+    collection do
+      get :intraday
+      put :update_stock, to: "stocks#update"
+    end
+  end
+
+  get "stocks/intraday", to: "stocks#intraday", as: "stocks_intraday"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

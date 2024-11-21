@@ -2,8 +2,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
-  # has_many: stocks, dependent: :delete_all
-  # has_many: transactions, dependent: :delete_all
+  has_many :transactions, dependent: :delete_all
+  has_many :stocks, dependent: :delete_all
 
   after_create :set_pending_status_and_notify
 

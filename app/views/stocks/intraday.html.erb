@@ -1,46 +1,35 @@
 <h1>Buy & Sell Stocks</h1>
 <hr>
 <br>
+<p>Hello, <%= current_user.first_name %></p>
+<p>Your Current Balance is $<%= current_user.balance %> </p>
 <p><%= link_to "Home", root_path %></p>
-
-
-<%= form_with url: stocks_intraday_path, method: :get, local: true do |form| %>
-    <%= form.label :symbol, "Enter stock symbol (e.g., MSFT)" %><br>
-    <%= form.text_field :symbol, required: true %><br>
-    <%= form.submit "Search Stock" %>
-<% end %>
 
 <p><%= link_to 'Regenerate Stocks', stocks_intraday_path %></p>
 
-
-<% if @latest_open_value %>
-    <p>Symbol: <%= @stock_symbol %></p>
-    <p> Stock Price : <%= number_to_currency(@latest_open_value) %> </p> <br>
-
-    <%= form_with url: stocks_intraday_path, local: true do |f| %>
-        <div>
-            <%= f.label :shares, "Buy Shares:" %><br>
-            <%= f.number_field :shares, value: 0, min: 0 %>
-        </div>
-
-        <div>
-            <%= f.hidden_field :symbol, value:@stock_symbol %>
-        </div>
-
-        <div>
-            <%= f.submit "Add Quantity", name: "action", value: "add" %>
-            <%= f.submit "Subtract Quantity", name: "action", value: "subtract" %>
-        </div>
-    <% end %>
-
-    <p>Total Qty Shares: <%= @stock_shares.to_i %> </p>
-    <p>Shares Total Cost: <%= number_to_currency(@stock_total_amount) %> </p>
+<%= form_with url: stocks_intraday_path, method: :get, local: true do |f| %>
+  <%= f.label :symbol, "Stock Symbol" %>
+  <%= f.text_field :symbol, value: params[:symbol] %>
+  <%= f.submit "Search Stock" %>
 <% end %>
 
+<% if @stock_symbol.present? %>
+  <h3>Stock: <%= @stock_symbol %></h3>
+  <p>Current Price: $<%= @latest_open_value %></p>
+  <p>Shares Owned: <%= @stock_shares %></p>
+  <p>Total Cost: $<%= @stock_total_amount %></p>
 
-    <% if false %>
-    <% @stocks.each do |stock| %>  
-        <p> <%= stock.shares %>  </p>
-        <p> <%= stock.cost_price %> </p>
-    <% end %>
-    <% end %>
+  <%= form_with url: stocks_path, method: :post, local: true do |f| %>
+    <%= f.hidden_field :symbol, value: @stock_symbol %>
+    <%= f.label :shares, "Number of Shares to Buy" %>
+    <%= f.number_field :shares, min: 1 %>
+    <%= f.submit "Buy Shares" %>
+  <% end %>
+
+  <%= form_with url: update_stock_stocks_path, method: :put, local: true do |f| %>
+    <%= f.hidden_field :symbol, value: @stock_symbol %>
+    <%= f.label :subtract_shares, "Number of Shares to Sell" %>
+    <%= f.number_field :subtract_shares, min: 1 %>
+    <%= f.submit "Sell Shares" %>
+  <% end %>
+<% end %>

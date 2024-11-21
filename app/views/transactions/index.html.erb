@@ -6,3 +6,29 @@
 <% if user_signed_in? %>
     <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
 <% end %>
+<h2>Transaction History</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Action</th>
+      <th>Shares</th>
+      <th>Stock Price</th>
+      <th>Total Price</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.company_name %></td>
+        <td><%= transaction.action_type.capitalize %></td>
+        <td><%= transaction.shares %></td>
+        <td>$<%= transaction.stock_price %></td>
+        <td>$<%= transaction.total_price %></td>
+        <td><%= transaction.created_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,39 +1,44 @@
-<h2>Sign up</h2>
+<h2 class="signup-title">Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'signup-form' }) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <div class="signup-field">
+    <%= f.label :email, class: 'signup-label' %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'signup-input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name %>
+  <div class="signup-field">
+    <%= f.label :first_name, class: 'signup-label' %><br />
+    <%= f.text_field :first_name, class: 'signup-input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name %>
+  <div class="signup-field">
+    <%= f.label :last_name, class: 'signup-label' %><br />
+    <%= f.text_field :last_name, class: 'signup-input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
+  <div class="signup-field">
+    <%= f.label :password, class: 'signup-label' %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'signup-input' %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="signup-field">
+    <%= f.label :password_confirmation, class: 'signup-label' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'signup-input' %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", class: 'signup-submit' %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+  <div class="devise-links">
+    <%= link_to 'Already have an account? Log in', new_session_path(resource_name) %><br />
+    <%= link_to 'Forgot your password?', new_password_path(resource_name) %><br />
+    <%= link_to 'Didn\'t receive confirmation instructions?', new_confirmation_path(resource_name) %>
+  </div>
+
+<% end %>
