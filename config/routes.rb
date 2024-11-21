@@ -5,10 +5,10 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :users
-    resources :transactions
+    resources :transactions 
   end
 
-  resources :transactions
+  resources :transactions, only: [:index]
 
   get "stocks/intraday"
   post "stocks/intraday" => "stocks#create"

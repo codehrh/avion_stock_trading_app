@@ -1,4 +1,4 @@
-<p><%= link_to "Stocks Transaction", stocks_transaction_path %></p>
+<p><%= link_to "Stocks Transaction", transactions_path %></p>
 
 <h1>STOCK - INTRADAY.HTML / Buy & Sell Stocks</h1>
 <hr>
@@ -23,15 +23,11 @@ Hi,
 
     <%= form_with url: stocks_intraday_path, local: true do |f| %>
         <div>
-            <%= f.label :shares, "Buy Shares:" %><br>
+            <%= f.label :shares, "BUY:" %><br>
             <%= f.number_field :shares, value: 0, min: 0 %>
             <%= f.submit "Add Quantity", name: "action", value: "add" %>
         </div>
-        <div>
-            <%= f.label :subtract_shares, "Subtract Shares:" %><br>
-            <%= f.number_field :subtract_shares, value: 0, min: 1 %>
-            <%= f.submit "Subtract Quantity", name: "action", value: "subtract" %>
-        </div>
+
         <div>
             <%= f.hidden_field :symbol, value:@stock_symbol %>
         </div>

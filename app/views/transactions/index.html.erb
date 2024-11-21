@@ -1,8 +1,40 @@
-<h1>Transactions</h1>
+<h1>Stocks TRANSACTION</h1>
 <hr>
 <br>
 <%= link_to "Home", root_path %>
+<br>
+Hi,
+<%= current_user.first_name %>
+<%= current_user.last_name %>
+<br>
+<br>
 
 <% if user_signed_in? %>
     <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
 <% end %>
+
+<br>
+<br><h1>Transaction History</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Symbol</th>
+      <th>Stock Price</th>
+      <th>Total Price</th>
+      <th>Qty Shares</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.symbol %></td>
+        <td><%= number_to_currency(transaction.stock_price) %></td>
+        <td><%= number_to_currency(transaction.total_price) %></td>
+        <td><%= transaction.shares %></td>
+        <td><%= transaction.created_at.strftime('%B %d, %Y %H:%M') %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
