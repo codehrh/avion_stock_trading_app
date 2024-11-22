@@ -1,12 +1,9 @@
 <h1>Transactions</h1>
+<%= link_to "Home", root_path %>
 <hr>
 <br>
-<%= link_to "Home", root_path %>
 
-<% if user_signed_in? %>
-    <%= button_to 'Logout', destroy_user_session_path, method: :delete %>
-<% end %>
-<h2>Transaction History</h2>
+<h2>Your Transaction History</h2>
 
 <table>
   <thead>

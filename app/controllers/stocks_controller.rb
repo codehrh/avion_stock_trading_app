@@ -6,17 +6,15 @@ class StocksController < ApplicationController
       api = AlphaVantageApi.new
       @intraday_data = api.time_series_intraday(params[:symbol])
   
-      # Validate the API response
+      # Validate
       if @intraday_data && @intraday_data['Meta Data'] && @intraday_data['Time Series (5min)']
         @stock_symbol = @intraday_data['Meta Data']['2. Symbol']
         @latest_open_value = @intraday_data['Time Series (5min)'].values.first.dig('1. open').to_f
   
-        # Get user's stock details
         @stocks = Stock.where(symbol: params[:symbol], user_id: current_user.id)
         @stock_shares = @stocks.sum(:shares)
         @stock_total_amount = @stocks.sum(:cost_price)
       else
-        # Handle missing or invalid data
         flash[:alert] = "Could not retrieve intraday data for symbol '#{params[:symbol]}'. Please check the symbol or try again later."
       end
     else
@@ -24,20 +22,17 @@ class StocksController < ApplicationController
     end
   end
 
-  def create
+  def create # buy
     api = AlphaVantageApi.new
     @symbol = params[:symbol]
     @shares = params[:shares].to_i
   
-    # Fetch intraday data
     @intraday_data = api.time_series_intraday(@symbol)
   
-    # Validate if data is present and correctly formatted
     if @intraday_data && @intraday_data['Time Series (5min)']
       @latest_open_value = @intraday_data['Time Series (5min)'].values.first.dig('1. open').to_f
       purchase_price = @latest_open_value * @shares
   
-      # Find or initialize the stock
       if current_user.balance >= purchase_price
         @stock = Stock.find_or_initialize_by(symbol: @symbol, user_id: current_user.id)
   
@@ -54,7 +49,7 @@ class StocksController < ApplicationController
 
       current_user.update(balance: current_user.balance - purchase_price)
   
-      # Record the transaction (buy)
+      # Transaction record (buy)
       Transaction.create!(
         user_id: current_user.id,
         company_name: @symbol,
@@ -67,29 +62,27 @@ class StocksController < ApplicationController
   
       redirect_to stocks_intraday_path(symbol: @symbol, commit: "Search Stock"), notice: "Successfully purchased #{@shares} shares of #{@symbol}."
     else
-      # Handle API failure or missing data
+
       redirect_to stocks_intraday_path, alert: "Unable to retrieve stock data for #{@symbol}. Please try again later."
     end
   end
 
-  def update
+  def update # sell
     if params[:symbol].present? && params[:subtract_shares].present?
       @symbol = params[:symbol]
       shares_to_subtract = params[:subtract_shares].to_i
   
-      # Stock fetch for current user
       @stocks = Stock.where(symbol: @symbol, user_id: current_user.id)
       total_shares = @stocks.sum(:shares) 
   
       if total_shares >= shares_to_subtract
-        # Get for most recent price
         api = AlphaVantageApi.new
         @intraday_data = api.time_series_intraday(@symbol)
         if @intraday_data && @intraday_data['Time Series (5min)']
           latest_open_value = @intraday_data['Time Series (5min)'].values.first.dig('1. open').to_f
           selling_price = latest_open_value * shares_to_subtract
   
-          # Balance 
+          # Balance update (for sell)
           current_user.update(balance: current_user.balance + selling_price)
   
           # Adjust stock holdings
@@ -105,7 +98,7 @@ class StocksController < ApplicationController
             )
           end
   
-          # Transaction Recording
+          # Transaction Recording (Sell)
           Transaction.create(
             company_name: @symbol, 
             total_price: selling_price,

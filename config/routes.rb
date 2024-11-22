@@ -14,7 +14,8 @@ Rails.application.routes.draw do
     resources :transactions
   end
 
-  resources :transactions, only: [:index, :create]
+  resources :transactions
+
 
   resources :stocks, only: [:create] do
     collection do

@@ -1,33 +1,33 @@
-<h2>Hello <%=current_user.first_name%>!</h2>
+<h2>Hello <%= current_user.first_name %>!</h2>
 <%= link_to 'Home', root_path %>
-<h2>Welcome to your Portfolio Page!</h2>
 <hr>
+<p>Trader Details:</p>
+<p> Trader name: <%= current_user.first_name %> <%= current_user.last_name %></p>
+<p> Trader email: <%= current_user.email %></p>
+
+<p><strong>Total Shares Owned:</strong> <%= @total_shares %></p>
+
 <% if @stocks.present? %>
   <table>
     <thead>
       <tr>
-        <th>Company</th>
         <th>Symbol</th>
-        <th>Shares Owned</th>
-        <th>Cost Price</th>
-        <th>Current Value</th>
-        <th>Total Value</th>
+        <th>Company Name</th>
+        <th>Total Shares</th>
+        <th>Total Cost</th>
       </tr>
     </thead>
     <tbody>
       <% @stocks.each do |stock| %>
         <tr>
-          <td><%= stock.company_name %></td>
           <td><%= stock.symbol %></td>
+          <td><%= stock.company_name %></td>
           <td><%= stock.shares %></td>
-          <td>$<%= stock.cost_price %></td>
-          <td>$<%= stock.symbol.present? ? AlphaVantageApi.new.time_series_intraday(stock.symbol)['Time Series (5min)'].values.first.dig('1. open').to_f : 0 %></td>
-          <td>$<%= stock.shares * (stock.symbol.present? ? AlphaVantageApi.new.time_series_intraday(stock.symbol)['Time Series (5min)'].values.first.dig('1. open').to_f : 0) %></td>
+          <td><%= number_to_currency(stock.cost_price) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <p><strong>Total Portfolio Value: </strong>$<%= @stocks.sum { |stock| stock.shares * (stock.symbol.present? ? AlphaVantageApi.new.time_series_intraday(stock.symbol)['Time Series (5min)'].values.first.dig('1. open').to_f : 0) } %></p>
 <% else %>
-  <p>You have no stocks in your portfolio.</p>
+  <p>You have no stocks available.</p>
 <% end %>
