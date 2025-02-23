@@ -3,10 +3,22 @@
 <hr>
 <br>
 
+<%= search_form_for @q do |f| %>
+
+  # Search if the name field contains...
+  <%= f.label :company_name_cont %>
+  <%= f.search_field :company_name_cont %>
+
+  <%= f.label :action_type_cont %>
+  <%= f.search_field :action_type_cont %>
+
+  <%= f.submit %>
+<% end %>
+
 <table>
   <thead>
     <tr>
-      <th>Company</th>
+      <th><%= sort_link(@q, :company_name, 'Symbol', default_order: :desc) %></th>
       <th>Action</th>
       <th>Shares</th>
       <th>Stock Price</th>
